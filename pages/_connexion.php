@@ -1,13 +1,13 @@
-<form action="index.php" method="POST">
-    <div>
+<form action="index.php" class="form-signin container" method="POST">
+    <div class="text-center mb-4">
         <h1>E-Bike</h1>
     </div>
-    <div>
-        <input type="texte" placeholder="Email" />
+    <div class="form-label-group text-center">
+        <input name="email" type="texte" placeholder="Email" required autofocus/>
         <br/>
-        <input type="password" placeholder="Password" />
+        <input name="password" type="password" placeholder="Password" required />
     </div>
-    <div>
-        <button type="submit" >Connexion</button>
+    <div class="form-label-group text-center">
+        <button class="btn btn-lg btn-primary" type="submit" >Connexion</button>
     </div>
 </form>
