@@ -1,0 +1,32 @@
+
+[
+	{	
+		"description":"VTT SEMI-RIGIDE ROCKRIDER XC 940 LTD SRAM X01 EAGLE 12V 29'' NOIR GRIS MAT 2020 - ÉDITION LIMITÉE",
+		"id":1,
+		"name":"RockRider 520",
+		"price":209,
+		"type":"homme"
+	},
+	
+	{	
+		"description":"VTT ÉLECTRIQUE SEMI-RIGIDE CUBE REACTION HYBRID RACE 500 SHIMANO SLX / XT 11V 27.5'' PLUS 2019 ROUGE",
+		"id":2,
+		"name":"Hrybrid Race 500",
+		"price":2399,
+		"type":"femme"
+	},
+	{	
+		"description":"VTT TOUT-SUSPENDU MOMA BIKES EQUINOX 26'' SHIMANO 24V NOIR",
+		"id":3,
+		"name":"Moma Bikes",
+		"price":259,
+		"type":"enfant"
+	},
+	{	
+		"description":"PNEU MICHELIN COUNTRY ROCK 26X1.75 TRINGLE RIGIDE TUBETYPE",
+		"id":4,
+		"name":"RockCountry 26",
+		"price":9.99,
+		"type":"pneumatiques"
+	}
+]
