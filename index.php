@@ -3,8 +3,15 @@
     session_start(); // début de session
     include("pages/_header.php");
 
+    // Connexion
     $email;
     $password;
+    
+    // Fiche produit
+    $id = 0;
+    $titre = '';
+    $description = '';
+    $prix = 0;
     
     if(empty($_POST)) {
         include("pages/_connexion.php");
@@ -20,7 +27,13 @@
             include("pages/_connexion.php");
         }
 
-        var_dump($api->getProductById(3));
+        // Fiche produit
+        //var_dump($api->getProductById(3));
+        $test = $api->getProductById(3);
+        $description = $test['product']['description'];
+        var_dump($description);
+        $titre = $test['product']['name'];
+        $prix = $test['product']['price'];
         include("pages/_fiche_produit.php");
 
         // include la page boutique //////////// POUR KENNY
@@ -28,8 +41,8 @@
         
 
         // Pour kenny
-        $test = $api->getAllProduit();
-        var_dump($test);
+        //$test = $api->getAllProduit();
+        //var_dump($test);
     }
 
 ?>
