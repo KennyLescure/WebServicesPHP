@@ -121,7 +121,6 @@ for ($i = 0; $i<$nbproduit ; $i++) {
         echo "<td><a href=\"popup_ajouter_panier.php?id=".$obj[$i]->id."\" onclick=\"window.open(this.href, 'Popup', 'scrollbars=1,resizable=1,height=170,width=200'); return false;\">";
         echo"<input type=\"button\" value=\"Ajouter au panier\"/></a></td>";
         echo "</tr>";
-        
     }
 }
 ?>
