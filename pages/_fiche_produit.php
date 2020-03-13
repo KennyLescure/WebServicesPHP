@@ -3,19 +3,24 @@
         <h1>Fiche produit</h1>
     </div>    
     <div>
-        <?php
-        echo(
-            '<h3>'.$titre.'</h3>'.
-
-            '<label>Image :</label>'.
-            '<img src="">'.
-
-            '<label>Description :</label>'.
-            '<p>'.$description.'</p>'.
-
-            '<label>Prix :</label>'.
-            '<label>'.$prix.'</label>'
-        );
-        ?>
+        <table>
+            <td>
+                <?php
+                echo(
+                    '<img src="data:image/jpeg;base64,'.$imageProduit.'"></img><br/>'
+                );
+                ?>
+            </td>
+            <td>
+                <tr>
+                    <h3><?php echo($titre) ?></h3>
+                    <label><?php echo($prix) ?> €</label>
+                </tr>
+                <tr>
+                    <label>Description :</label>
+                    <p><?php echo($description) ?></p>
+                </tr>
+            </td>
+        </table>
     </div>
 </div>

@@ -12,6 +12,7 @@
     $titre = '';
     $description = '';
     $prix = 0;
+    $imageProduit;
     
     if(empty($_POST)) {
         include("pages/_connexion.php");
@@ -25,24 +26,28 @@
         if(!$api->connexion($email,$password)) {
             ?><script>alert("Utilisateur inconnue")</script><?php
             include("pages/_connexion.php");
+        } else {
+            // Fiche produit
+            $produit = $api->getProductById(4);
+            $description = $produit['product']['description'];
+            $titre = $produit['product']['name'];
+            $prix = $produit['product']['price'];
+            
+            $imageProduit = $api->getImageOfProduct(4);
+            var_dump($imageProduit);
+            
+            include("pages/_fiche_produit.php");
         }
 
-        // Fiche produit
-        //var_dump($api->getProductById(3));
-        $test = $api->getProductById(3);
-        $description = $test['product']['description'];
-        var_dump($description);
-        $titre = $test['product']['name'];
-        $prix = $test['product']['price'];
-        include("pages/_fiche_produit.php");
+        
 
         // include la page boutique //////////// POUR KENNY
 
         
 
         // Pour kenny
-        //$test = $api->getAllProduit();
-        //var_dump($test);
+        // $test = $api->getAllProduit();
+        // var_dump($test);
     }
 
 ?>
