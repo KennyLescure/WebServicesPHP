@@ -1,0 +1,15 @@
+.pair{
+    background-color: lightgray;
+}
+
+.impair{
+    background-color: white;
+}
+
+#entete{
+    background-color: lightblue;
+}
+
+#panier{
+    margin-left: 70%;
+}

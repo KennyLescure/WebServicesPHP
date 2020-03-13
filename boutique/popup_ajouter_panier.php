@@ -1,7 +1,7 @@
 <html>
  <head>
   <title>Boutique</title>
-  <link href="boutique.css" rel="stylesheet">
+  <link href="../boutique.css" rel="stylesheet">
  </head>
  <body>
  <?php
@@ -35,19 +35,10 @@
             
             echo("price :".$price);
             
-            $articlepanier = $quantite."/".$description."/".$name."/".$price;
-            
-            echo("</br>articlepanier :".$articlepanier);
-
-            $monfichier = fopen('panier.txt', 'r+');
-
-            fclose($monfichier);
-            
-
 ?>
         <script type="text/javascript">
             window.opener.location.reload();
-            //window.close();
+            window.close();
         </script>
 <?php
         }
