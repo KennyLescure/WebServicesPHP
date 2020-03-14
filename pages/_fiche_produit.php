@@ -7,7 +7,7 @@
             <td>
                 <?php
                 echo(
-                    '<img src="data:image/jpeg;base64,'.$imageProduit.'"></img><br/>'
+                    '<img src="data:image/;base64,'.$imageProduit.'"></img><br/>'
                 );
                 ?>
             </td>

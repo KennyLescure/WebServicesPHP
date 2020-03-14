@@ -27,6 +27,9 @@
             ?><script>alert("Utilisateur inconnue")</script><?php
             include("pages/_connexion.php");
         } else {
+
+            
+
             // Fiche produit
             $produit = $api->getProductById(4);
             $description = $produit['product']['description'];
