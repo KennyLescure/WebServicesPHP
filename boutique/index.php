@@ -1,5 +1,8 @@
 <html>
  <head>
+    <?php  
+    require_once '../api/_webService.php'; 
+    ?>
     <title>Boutique</title>
     <link rel="stylesheet" href="../boutique.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -21,11 +24,10 @@
  <body>
 
  <?php
-    //ouverture json file, contenu sur $obj, nombre de produit sur $nbproduit
-    $file = 'produit.json'; 
-    $data = file_get_contents($file); 
-    $obj = json_decode($data); 
-    $nbproduit = count($obj); 
+
+    //recup produits
+    $api = new api;
+    $prod = $api->getAllProduit();
 
     //Initiation filtre vide
     $filtre = ",";
@@ -34,24 +36,24 @@
     {
         if(isset($_POST["Homme"]))
         {
-            $filtre = $filtre."homme,";
+            $filtre = $filtre."homme";
         }
         if(isset($_POST["Femme"]))
         {
-            $filtre = $filtre."femme,";
+            $filtre = $filtre."femme";
         }
         if(isset($_POST["Enfant"]))
         {
-            $filtre = $filtre."enfant,";
+            $filtre = $filtre."enfant";
         }
-        if(isset($_POST["Pneumatiques"]))
+        if(isset($_POST["Pneumatique"]))
         {
-            $filtre = $filtre."pneumatiques,";
+            $filtre = $filtre."pneumatique,";
         }
     }
     if ($filtre==",")
     {
-        $filtre = ",homme,femme,enfant,pneumatiques"; // si aucun filtre appliqué, tous coché et tous actif
+        $filtre = ",vélo,homme,femme,enfant,pneumatique"; // si aucun filtre appliqué, tous coché et tous actif
     }
 ?>
 <div id="entete">
@@ -83,12 +85,12 @@
                     echo("Enfant<input type=\"checkbox\" name=\"Enfant\" />");
                 }
 
-                if(strpos($filtre,"pneumatiques"))
+                if(strpos($filtre,"pneumatique"))
                 {
-                    echo("Pneumatiques<input type=\"checkbox\" name=\"Pneumatiques\" checked/>");
+                    echo("Pneumatiques<input type=\"checkbox\" name=\"Pneumatique\" checked/>");
                 }else
                 {
-                    echo("Pneumatiques<input type=\"checkbox\" name=\"Pneumatiques\" />");
+                    echo("Pneumatiques<input type=\"checkbox\" name=\"Pneumatique\" />");
                 }
             ?>
                 <input type="submit" value="Filtrer">
@@ -99,30 +101,45 @@
     </div>
     <table id="tablevelos" class="table"  border="1">
         <thead>
-            <th>Liste de produits disponibles</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Categorie</th>
+            <th>Ajouter au panier</th>
         </thead>
         <tbody>
 <?php
-for ($i = 0; $i<$nbproduit ; $i++) {
-    if(strpos($filtre,$obj[$i]->type)){
-        if ($i%2 == 1)
-        {
-            echo "<tr class=\"pair\">";
-        }else{
-            echo "<tr class=\"impair\">";
-        }
+for($i=0;$i<count($prod['products']);$i++){ //pr chaque produit de la base
+
+    for($z=0;$z<count($prod['products'][$i]['categories']);$z++){ // pr chaque index de sa table categorie
         
-        echo "<td><a href=\"_fiche_produit.php?id=".$obj[$i]->id."\">".$obj[$i]->name."</a></td>"; 
-        echo "<td>".$obj[$i]->description."</td>"; 
-        echo "<td>".$obj[$i]->price."</td>"; 
-        echo "<td><a href=\"popup_ajouter_panier.php?id=".$obj[$i]->id."\" onclick=\"window.open(this.href, 'Popup', 'scrollbars=1,resizable=1,height=170,width=200'); return false;\">";
+        if(strpos($filtre,$prod['products'][$i]['categories'][$z])){ // si l'index contient est contenu dans les filtres a affiché
+            
+            if ($i%2 == 1)
+            {
+                echo "<tr class=\"pair\">";
+            }else{
+                echo "<tr class=\"impair\">";
+            }
+        echo "<td><a href=\"_fiche_produit.php?id=".$prod['products'][$i]['id']."\">".$prod['products'][$i]['name']."</a></td>"; 
+        echo "<td>".$prod['products'][$i]['description']."</td>"; 
+        echo "<td>".$prod['products'][$i]['price']."</td>"; 
+        if (isset($prod['products'][$i]['categories'][1]))
+        {
+            echo "<td>".$prod['products'][$i]['categories'][1]."</td>"; 
+        }else
+        {
+            echo "<td>".$prod['products'][$i]['categories'][0]."</td>"; 
+        }
+        echo "<td><a href=\"popup_ajouter_panier.php?id=".$prod['products'][$i]['id']."\" onclick=\"window.open(this.href, 'Popup', 'scrollbars=1,resizable=1,height=170,width=200'); return false;\">";
         echo"<input type=\"button\" value=\"Ajouter au panier\"/></a></td>";
-        echo "</tr>";
-    }
+        echo "</tr>";          
+        $z++;
+
+        }
+    }    
 }
+
 ?>
         </tbody>
     </table>

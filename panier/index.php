@@ -22,12 +22,13 @@
     <div id="entete">
         <a href="../boutique/index.php"><input type="button" value="Acceder à la boutique"/></a>
     </div>
+    <center><h3>Les articles de votre panier s'affichent ici :</h3></center>
     <table id="tablevelos" border="1" class="table"  >
         <thead>
-            <th>Les articles de votre panier s'affichent ici :</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Categorie</th>
         </thead>
         <tbody>
             <tr>

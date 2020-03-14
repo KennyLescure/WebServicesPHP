@@ -1,3 +1,4 @@
+
 <?php
 class Api {
 
@@ -53,7 +54,7 @@ class Api {
      * Permet de retourner la liste des porduits
      * @return un array 'products' => 'categorie', 'description', 'id', 'name', 'price'
      */
-    public function getAllProduit() : ?array {
+    public function getAllProduit() : array {
 
         $curl = curl_init($this->url."product");
         curl_setopt($curl, CURLOPT_HEADER, false);
@@ -75,7 +76,7 @@ class Api {
      * Permet de récupérer les informations d'un produit pour un id de produit donné
      * @return un array 'product' => 'categorie', 'description', 'id', 'name', 'price
      */
-    public function getProductById(int $id) : ?array {
+    public function getProductById(int $id) : array {
 
         $curl = curl_init($this->url."product/".$id);
         curl_setopt($curl, CURLOPT_HEADER, false);
@@ -92,4 +93,23 @@ class Api {
             return $response;
         }
     }
+
+    public function getImageOfProduct(int $id) {
+
+        $curl = curl_init($this->url."product/img/".$id);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        if($status != 200) {
+            die("Error: call to URL ".$this->url." failed with status $status, response $json_response, curl_error " 
+            . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+        } else {
+            curl_close($curl);
+            $response = $json_response;
+            return $response;
+        }
+    }
 }
+

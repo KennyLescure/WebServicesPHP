@@ -1,19 +1,28 @@
 <html>
  <head>
+ <?php  
+    require_once '../api/_webService.php'; 
+    ?>
   <title>Boutique</title>
   <link href="../boutique.css" rel="stylesheet">
  </head>
  <body>
  <?php
-    //ouverture json file, contenu sur $obj, nombre de produit sur $nbproduit
-    $file = 'produit.json'; 
-    $data = file_get_contents($file); 
-    $obj = json_decode($data); 
-    $nbproduit = count($obj); 
-
-    if(isset($_GET["id"]))
+$curl = curl_init("http://webservice-rest-velo-back.herokuapp.com/cart/user");
+curl_setopt($curl, CURLOPT_HEADER, false);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+$json_response = curl_exec($curl);
+$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+$response = json_decode($json_response, true);
+ var_dump($response);   
+ if(isset($_GET["id"]))
     {
         $id=$_GET["id"];
+        //recup info produit par id
+        $api = new api;
+        $prod = $api->getProductById($id);
+        var_dump ($prod);
+
         if(isset($_POST["quantite"]))
         {
             $quantite=$_POST["quantite"]; // qtt voulu par l'user
