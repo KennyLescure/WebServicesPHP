@@ -1,32 +1,7 @@
-<html>
- <head>
-    <?php  
-    require_once '../api/_webService.php'; 
-    ?>
-    <title>Boutique</title>
-    <link rel="stylesheet" href="../boutique.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
-    <script
-            src="http://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".table").DataTable({
- 
-            });
-        });
-    </script>
-</head>
  <body>
-
- <?php
+<?php
 
     //recup produits
-    $api = new api;
     $prod = $api->getAllProduit();
 
     //Initiation filtre vide
@@ -57,7 +32,7 @@
     }
 ?>
 <div id="entete">
-    <form action="index.php?action=filtre" method="post">
+    <form action="index.php?uc=accueil&action=filtre" method="post">
         <fieldset id="#periodicite">
             <span>
             <?php
@@ -95,7 +70,7 @@
             ?>
                 <input type="submit" value="Filtrer">
             </span>
-            <a href="../panier/index.php"><img src="panier.jpg" id="panier" /></a>
+            <a href="../panier/index.php?"><img src="boutique/panier.jpg" id="panier" /></a>
         </fieldset>
     </form>
     </div>
@@ -138,10 +113,7 @@ for($i=0;$i<count($prod['products']);$i++){ //pr chaque produit de la base
 
         }
     }    
-}
-
-?>
+}?>
         </tbody>
     </table>
  </body>
-</html>

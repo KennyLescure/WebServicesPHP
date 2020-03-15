@@ -8,6 +8,13 @@
  </head>
  <body>
  <?php
+
+    $api = new api;
+    $prod = $api->getCurrentUserCart();
+    var_dump($prod);
+    echo (isset($prod));
+
+
 $curl = curl_init("http://webservice-rest-velo-back.herokuapp.com/cart/user");
 curl_setopt($curl, CURLOPT_HEADER, false);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

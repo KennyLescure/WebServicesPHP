@@ -3,10 +3,11 @@
         <h1>E-Bike</h1>
     </div>
     <div class="form-label-group text-center">
-        <input name="email" type="texte" placeholder="Email" required autofocus/>
+        <input class="form-control" name="email" type="texte" placeholder="Email" required autofocus/>
         <br/>
-        <input name="password" type="password" placeholder="Password" required />
+        <input class="form-control" name="password" type="password" placeholder="Password" required />
     </div>
+    <br/>
     <div class="form-label-group text-center">
         <button class="btn btn-lg btn-primary" type="submit" >Connexion</button>
     </div>

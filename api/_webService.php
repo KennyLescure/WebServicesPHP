@@ -1,4 +1,3 @@
-
 <?php
 class Api {
 
@@ -94,6 +93,10 @@ class Api {
         }
     }
 
+    /**
+     * Retourne l'image du produit donnée (id)
+     * @return base64 de l'image 
+     */
     public function getImageOfProduct(int $id) {
 
         $curl = curl_init($this->url."product/img/".$id);
@@ -111,5 +114,82 @@ class Api {
             return $response;
         }
     }
-}
+    
+    /**
+     * Crée un panier
+     * @return true si bien crée sinon false
+     */
+    public function createUserCart($cart) : bool {
 
+        $result = false;
+
+        $content = json_encode($cart);
+
+        $curl = curl_init($this->url."cart");
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json","x-access-token:".$this->token));
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        if ( $status != 200 ) {
+            die("Error: call to URL ".$this->url." failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+        }
+        curl_close($curl);
+        $response = json_decode($json_response,true);
+        if($response['message'] = 'cart created') {
+            $result = true;
+        }
+        return $result;
+    }
+
+    /**
+     * Retourne le panier du user // Je comprend pas comment utiliser cette fonction
+     * @return un array 'orders' => 'id', 'product_id', 'quantity', 'user_id'
+     */
+    public function getCurrentUserCart() : array {
+
+        $curl = curl_init($this->url."cart/user");
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json","x-access-token:".$this->token));
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        if ( $status != 200 ) {
+            die("Error: call to URL ".$this->url." failed with status $status, response $json_response, curl_error " 
+            . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+        } else {
+            curl_close($curl);
+            $response = json_decode($json_response, true);
+            return $response;
+        }
+    }
+
+    /**
+     * Retourne toutes les categories
+     * @return array 'categories' => 'n' => 'id', 'name'
+     */
+    public function getAllCategories() : array {
+
+        $curl = curl_init($this->url."category");
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json","x-access-token:".$this->token));
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        if ( $status != 200 ) {
+            die("Error: call to URL ".$this->url." failed with status $status, response $json_response, curl_error " 
+            . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+        } else {
+            curl_close($curl);
+            $response = json_decode($json_response, true);
+            return $response;
+        }
+    }
+
+
+}
