@@ -25,7 +25,5 @@ if(empty($_POST)) {
     } else {
         $_SESSION['email'] = $email;
         include 'controleurs/_c_accueil.php';
-
-        var_dump($api->getCurrentUserCart());
     }
 }

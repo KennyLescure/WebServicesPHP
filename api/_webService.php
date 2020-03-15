@@ -75,7 +75,7 @@ class Api {
      * Permet de récupérer les informations d'un produit pour un id de produit donné
      * @return un array 'product' => 'categorie', 'description', 'id', 'name', 'price
      */
-    public function getProductById(int $id) : ?array {
+    public function getProductById(int $id) : array {
 
         $curl = curl_init($this->url."product/".$id);
         curl_setopt($curl, CURLOPT_HEADER, false);

@@ -12,6 +12,7 @@
     switch($uc) {
         case 'connexion' : include 'controleurs/_c_connexion.php'; break;
         case 'accueil' : include 'controleurs/_c_accueil.php'; break;
+        case 'panier' : include 'controleurs/_c_panier.php';break;
     }
 
             // // Récup toutes les catégories
