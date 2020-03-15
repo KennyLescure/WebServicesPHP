@@ -3,6 +3,10 @@
 
     //recup produits
     $api = new api;
+    if(isset($_GET["tokenuser"]))
+    {
+        $tokenuser = $_GET["tokenuser"];
+    }
     $api->setToken($tokenuser);
     $prod = $api->getAllProduit();
 
@@ -34,7 +38,10 @@
     }
 ?>
 <div id="entete">
-    <form action="index.php?uc=accueil&action=filtre" method="post">
+<?php
+    echo"<form action=\"index.php?uc=accueil&action=filtre&tokenuser=".$tokenuser."\" method=\"post\">"
+?>
+    
         <fieldset id="#periodicite">
             <span>
             <?php

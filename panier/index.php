@@ -35,9 +35,9 @@
     $prod = $api->getCurrentUserCart();
     var_dump ($prod);
  ?>
-    <div id="entete">
+   <!-- <div id="entete">
         <a href="../boutique/index.php"><input type="button" value="Acceder à la boutique"/></a>
-    </div>
+    </div> -->
     <center><h3>Les articles de votre panier s'affichent ici :</h3></center>
     <table id="tablevelos" border="1" class="table">
         <thead>
@@ -55,6 +55,7 @@ for($i=0;$i<count($prod['orders']);$i++){
     }else{
         echo "<tr class=\"impair\">";
     }
+    echo "<td></td>"; 
     echo "<td></td>"; 
     echo "<td></td>"; 
     echo "<td></td>"; 
