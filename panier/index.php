@@ -24,6 +24,14 @@
  <body>
  <?php
     //recup panier
+    $api = new api;
+
+    if(isset($_GET["tokenuser"]))
+    {
+        $tokenuser = $_GET["tokenuser"];
+    }
+
+    $api->setToken($tokenuser);
     $prod = $api->getCurrentUserCart();
     var_dump ($prod);
  ?>

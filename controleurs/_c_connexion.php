@@ -24,7 +24,8 @@ if(empty($_POST)) {
         include 'pages/_connexion.php';
     } else {
         $_SESSION['email'] = $email;
-        include 'boutique/index.php';
+        $tokenuser = ($api->token);
+        include 'controleurs/_c_accueil.php';
 
     }
 }

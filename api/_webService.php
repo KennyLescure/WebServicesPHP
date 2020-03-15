@@ -9,6 +9,10 @@ class Api {
         
     }
 
+    public function setToken($pToken) {
+        $this->token = $pToken;
+    }
+
     /**
      * Permet de vérif si l'utilisateur existe
      * @return true si l'utilisateur existe / false cas contraire

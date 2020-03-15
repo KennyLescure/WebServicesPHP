@@ -2,6 +2,8 @@
 <?php
 
     //recup produits
+    $api = new api;
+    $api->setToken($tokenuser);
     $prod = $api->getAllProduit();
 
     //Initiation filtre vide
@@ -70,7 +72,9 @@
             ?>
                 <input type="submit" value="Filtrer">
             </span>
-            <a href="../panier/index.php?"><img src="boutique/panier.jpg" id="panier" /></a>
+<?php
+            echo"<a href=\"panier/index.php?tokenuser=".$tokenuser."\"><img src=\"boutique/panier.jpg\" id=\"panier\" /></a>"
+?>
         </fieldset>
     </form>
     </div>
