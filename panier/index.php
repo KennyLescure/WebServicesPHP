@@ -33,7 +33,6 @@
 
     $api->setToken($tokenuser);
     $prod = $api->getCurrentUserCart();
-    var_dump ($prod);
  ?>
    <!-- <div id="entete">
         <a href="../boutique/index.php"><input type="button" value="Acceder à la boutique"/></a>
@@ -43,8 +42,9 @@
         <thead>
             <th>Nom</th>
             <th>Description</th>
-            <th>Prix</th>
-            <th>Categorie</th>
+            <th>Prix Unitaire </th>
+            <th>Quantite</th>
+            <th>Prix total</th>
         </thead>
         <tbody>
 <?php
@@ -55,23 +55,25 @@ for($i=0;$i<count($prod['orders']);$i++){
     }else{
         echo "<tr class=\"impair\">";
     }
-    echo "<td></td>"; 
-    echo "<td></td>"; 
-    echo "<td></td>"; 
-    echo "<td></td>"; 
+    $idprod = $prod['orders'][$i]['product_id'];
+    $infoprod = $api->getProductById($idprod);
+    if (isset($sommetotaleprod))
+    {
+        $prixtt = $sommetotaleprod + $prod['orders'][$i]['quantity'] * $infoprod['product']['price'];   
+    }
+    $sommetotaleprod = $prod['orders'][$i]['quantity'] * $infoprod['product']['price'];
+     echo "<td>".$infoprod['product']['name']."</td>"; 
+    echo "<td>".$infoprod['product']['description']."</td>"; 
+    echo "<td>".$infoprod['product']['price']."</td>"; 
+    echo "<td>".$prod['orders'][$i]['quantity']."</td>"; 
+    echo "<td>".$sommetotaleprod."</td></tr>"; 
 }
 ?>
-            <tr>
-                <td>sss
-                </td>
-                <td>dd
-                </td>
-                <td>aa
-                </td>
-                <td>
-                </td>
-            </tr>
+
         </tbody>
     </table>
+<?php
+    echo"<center><b><p>Prix total du panier : ".$prixtt." €</p></b></center>";
+?>
  </body>
 </html>
