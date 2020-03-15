@@ -12,6 +12,8 @@
     switch($uc) {
         case 'connexion' : include 'controleurs/_c_connexion.php'; break;
         case 'accueil' : include 'boutique/index.php'; break;
+        case 'panier' : include 'contoleurs/_c_panier.php'; break;
+        case 'ficheProduit' : include 'pages/_fiche_produit.php';  break;
     }
 
             // // Récup toutes les catégories
@@ -32,7 +34,6 @@
             // $description = $produit['product']['description'];
             // $titre = $produit['product']['name'];
             // $prix = $produit['product']['price'];
-            
             // $imageProduit = $api->getImageOfProduct(4);
             // var_dump($imageProduit);
             

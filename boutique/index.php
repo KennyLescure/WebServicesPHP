@@ -6,6 +6,8 @@
     if(isset($_GET["tokenuser"]))
     {
         $tokenuser = $_GET["tokenuser"];
+    } else {
+        $tokenuser = $_SESSION['token'];
     }
     $api->setToken($tokenuser);
     $prod = $api->getAllProduit();
@@ -107,7 +109,7 @@ for($i=0;$i<count($prod['products']);$i++){ //pr chaque produit de la base
             }else{
                 echo "<tr class=\"impair\">";
             }
-        echo "<td><a href=\"_fiche_produit.php?id=".$prod['products'][$i]['id']."\">".$prod['products'][$i]['name']."</a></td>"; 
+        echo "<td><a href=index.php?uc=ficheProduit&id=".$prod['products'][$i]['id'].">".$prod['products'][$i]['name']."</a></td>"; 
         echo "<td>".$prod['products'][$i]['description']."</td>"; 
         echo "<td>".$prod['products'][$i]['price']."</td>"; 
         if (isset($prod['products'][$i]['categories'][1]))
