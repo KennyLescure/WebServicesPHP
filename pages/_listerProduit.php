@@ -1,4 +1,8 @@
-<?php    
+<?php
+
+    //recup produits
+    $api = new api;
+    $prod = $api->getAllProduit();
 
     //Initiation filtre vide
     $filtre = ",";
@@ -28,7 +32,7 @@
     }
 ?>
     <div id="entete">
-        <form action="index.php?uc=accueil&action=filtre" method="post">
+        <form action="index.php?action=filtre" method="post">
             <fieldset id="#periodicite">
                 <span>
                 <?php
