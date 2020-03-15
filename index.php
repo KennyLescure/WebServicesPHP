@@ -3,54 +3,39 @@
     session_start(); // début de session
     include("pages/_header.php");
 
-    // Connexion
-    $email;
-    $password;
-    
-    // Fiche produit
-    $id = 0;
-    $titre = '';
-    $description = '';
-    $prix = 0;
-    $imageProduit;
-    
-    if(empty($_POST)) {
-        include("pages/_connexion.php");
+    if(isset($_REQUEST['uc'])) {
+        $uc = $_REQUEST['uc'];
     } else {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        // Test si l'utilisateur est existant
-        // Utiliser email : lucas et mdp : lucas
-        $api = new api;
-        if(!$api->connexion($email,$password)) {
-            ?><script>alert("Utilisateur inconnue")</script><?php
-            include("pages/_connexion.php");
-        } else {
-
-            
-
-            // Fiche produit
-            $produit = $api->getProductById(4);
-            $description = $produit['product']['description'];
-            $titre = $produit['product']['name'];
-            $prix = $produit['product']['price'];
-            
-            $imageProduit = $api->getImageOfProduct(4);
-            var_dump($imageProduit);
-            
-            include("pages/_fiche_produit.php");
-        }
-
-        
-
-        // include la page boutique //////////// POUR KENNY
-
-        
-
-        // Pour kenny
-        // $test = $api->getAllProduit();
-        // var_dump($test);
+        $uc = 'connexion';
     }
+
+    switch($uc) {
+        case 'connexion' : include 'controleurs/_c_connexion.php'; break;
+        case 'accueil' : include 'controleurs/_c_accueil.php'; break;
+    }
+
+            // // Récup toutes les catégories
+            // $category = $api->getAllCategories();
+
+            // // Récup le panier de l'utilisateur courant 
+            // $userCart = $api->getCurrentUserCart();
+            
+            // // Ajout d'un panier
+            // $cart = array(["product_id" => 3,"quantity" => 10],["product_id" => 4,"quantity" => 10]);
+            // $response = $api->createUserCart($cart);
+            // if(!$response) {
+            //     Erreur lors de l'ajout du panier
+            // }
+
+            // // Fiche produit
+            // $produit = $api->getProductById(4);
+            // $description = $produit['product']['description'];
+            // $titre = $produit['product']['name'];
+            // $prix = $produit['product']['price'];
+            
+            // $imageProduit = $api->getImageOfProduct(4);
+            // var_dump($imageProduit);
+            
+            // include("pages/_fiche_produit.php");
 
 ?>

@@ -146,7 +146,7 @@ class Api {
     }
 
     /**
-     * Retourne le panier du user 
+     * Retourne le panier du user // Je comprend pas comment utiliser cette fonction
      * @return un array 'orders' => 'id', 'product_id', 'quantity', 'user_id'
      */
     public function getCurrentUserCart() : array {
