@@ -36,7 +36,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><h3>'.$titre.'></h3></td>
+                                <td><h3>'.$titre.'</h3></td>
                                 <tr>
                                     <td><label>Prix : </label></td>
                                     <td><label>'.$prix.'€</label></td>

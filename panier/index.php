@@ -1,14 +1,9 @@
  <?php
     //recup panier
     $api = new api;
-
-    if(isset($_GET["tokenuser"]))
-    {
-        $tokenuser = $_GET["tokenuser"];
-    }
-
-    $api->setToken($tokenuser);
+    $api->setToken($_SESSION['token']);
     $prod = $api->getCurrentUserCart();
+    $prixtt = 0;
  ?>
    <!-- <div id="entete">
         <a href="../boutique/index.php"><input type="button" value="Acceder à la boutique"/></a>
@@ -23,32 +18,31 @@
             <th>Prix total</th>
         </thead>
         <tbody>
-<?php
-for($i=0;$i<count($prod['orders']);$i++){
-    if ($i%2 == 1)
-    {
-        echo "<tr class=\"pair\">";
-    }else{
-        echo "<tr class=\"impair\">";
-    }
-    $idprod = $prod['orders'][$i]['product_id'];
-    $infoprod = $api->getProductById($idprod);
-    if (isset($sommetotaleprod))
-    {
-        $prixtt = $sommetotaleprod + $prod['orders'][$i]['quantity'] * $infoprod['product']['price'];   
-    }
-    $sommetotaleprod = $prod['orders'][$i]['quantity'] * $infoprod['product']['price'];
-    echo "<td>".$infoprod['product']['name']."</td>"; 
-    echo "<td>".$infoprod['product']['description']."</td>"; 
-    echo "<td>".$infoprod['product']['price']."</td>"; 
-    echo "<td>".$prod['orders'][$i]['quantity']."</td>"; 
-    echo "<td>".$sommetotaleprod."</td></tr>"; 
-}
-?>
-
+        <?php
+        for($i=0;$i<count($prod['orders']);$i++){
+            if ($i%2 == 1)
+            {
+                echo "<tr class=\"pair\">";
+            }else{
+                echo "<tr class=\"impair\">";
+            }
+            $idprod = $prod['orders'][$i]['product_id'];
+            $infoprod = $api->getProductById($idprod);
+            if (isset($sommetotaleprod))
+            {
+                $prixtt = $sommetotaleprod + $prod['orders'][$i]['quantity'] * $infoprod['product']['price'];   
+            }
+            $sommetotaleprod = $prod['orders'][$i]['quantity'] * $infoprod['product']['price'];
+            echo "<td>".$infoprod['product']['name']."</td>"; 
+            echo "<td>".$infoprod['product']['description']."</td>"; 
+            echo "<td>".$infoprod['product']['price']."</td>"; 
+            echo "<td>".$prod['orders'][$i]['quantity']."</td>"; 
+            echo "<td>".$sommetotaleprod."</td></tr>"; 
+        }
+        ?>
         </tbody>
     </table>
 <?php
     echo"<center><b><p>Prix total du panier : ".$prixtt." €</p></b></center>";
-    echo"<center><a href='index.php?uc=facture'><button type='button' class='btn btn-outline-primary>Valider</button'></a></center>";
 ?>
+<center><a href="index.php?uc=facture"><button type="button" class="btn btn-primary">Valider la commande</button></a></center>
