@@ -81,9 +81,9 @@
             ?>
                 <input type="submit" value="Filtrer">
             </span>
-<?php
-            echo"<a href=\"panier/index.php?tokenuser=".$tokenuser."\"><img src=\"boutique/panier.jpg\" id=\"panier\" /></a>"
-?>
+            <?php
+                echo'<a href="index.php?uc=panier"><img src="boutique/panier.jpg" id=panier /></a>';
+            ?>
         </fieldset>
     </form>
     </div>

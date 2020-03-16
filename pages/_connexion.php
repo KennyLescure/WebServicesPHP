@@ -11,4 +11,6 @@
     <div class="form-label-group text-center">
         <button class="btn btn-lg btn-primary" type="submit" >Connexion</button>
     </div>
+    <br/>
+    <div class="text-center"><a href="index.php?uc=creerCompte"><span>Créer un compte</span></a></div>
 </form>

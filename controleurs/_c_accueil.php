@@ -5,6 +5,5 @@ if(empty($_SESSION['email'])) {
 } else {
     //include __DIR__ .'/../pages/_menu.php';
     include 'boutique/index.php';
-
 }
 

@@ -54,8 +54,43 @@ class Api {
     }
 
     /**
+     * Permet de créer un utilisateur
+     * @return true si créer / false cas inverse
+     * @param $nom , $mdp , $email
+     */
+    public function createUser(string $nom, string $mdp, string $email) {
+        $result = false;
+
+        $data = array('name' => $nom, 'password' => $mdp, 'mail' => $email);
+        $content = json_encode($data);
+
+        $curl = curl_init($this->url."user");
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json"));
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        if ( $status != 200 ) {
+            die("Error: call to URL ".$this->url." failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+        }
+
+        curl_close($curl);
+        $response = json_decode($json_response,true);
+
+        if($response !== NULL && json_last_error() === JSON_ERROR_NONE)
+        {
+            $result = true;
+        }
+
+        return $result;
+    }
+
+    /**
      * Permet de retourner la liste des porduits
-     * @return un array 'products' => 'categorie', 'description', 'id', 'name', 'price'
+     * @return un array 'products' => 'categorie', 'description', 'id', 'name', 'price', 'stock'
      */
     public function getAllProduit() : array {
 
@@ -195,5 +230,57 @@ class Api {
         }
     }
 
+    /**
+     * Permet de créer une facture
+     * @return true si ca a été fait / false si erreur
+     * @param un array({"product_id" : 3, "quantity" : 10}, {"product_id" : 4, "quantity" : 10}  ... )
+     */
+    public function createBill($bill) : array {
 
+        $result = false;
+
+        $content = json_encode($bill);
+
+        $curl = curl_init($this->url."cart");
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json","x-access-token:".$this->token));
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        if ( $status != 200 ) {
+            die("Error: call to URL ".$this->url." failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+        }
+        curl_close($curl);
+        $response = json_decode($json_response,true);
+        if($response['message'] = 'bill created') {
+            $result = true;
+        }
+        return $result;
+    }
+
+    /**
+     * Retourne les factures de l'utilisateur
+     * @return array("2020-03-14" => { 'product_id' : 3, "quantity" : 10},{ 'product_id' : 4, "quantity" : 10})
+     */
+    public function getUserBill() {
+
+        $curl = curl_init($this->url."bill");
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json","x-access-token:".$this->token));
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        if ( $status != 200 ) {
+            die("Error: call to URL ".$this->url." failed with status $status, response $json_response, curl_error " 
+            . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+        } else {
+            curl_close($curl);
+            $response = json_decode($json_response, true);
+            return $response;
+        }
+    }
 }
