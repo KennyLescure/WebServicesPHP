@@ -161,7 +161,6 @@ class Api {
     public function createUserCart($cart) : bool {
 
         $result = false;
-
         $content = json_encode($cart);
 
         $curl = curl_init($this->url."cart");
@@ -185,7 +184,7 @@ class Api {
     }
 
     /**
-     * Retourne le panier du user // Je comprend pas comment utiliser cette fonction
+     * Retourne le panier du user 
      * @return un array 'orders' => 'id', 'product_id', 'quantity', 'user_id'
      */
     public function getCurrentUserCart() : array {
@@ -235,13 +234,12 @@ class Api {
      * @return true si ca a été fait / false si erreur
      * @param un array({"product_id" : 3, "quantity" : 10}, {"product_id" : 4, "quantity" : 10}  ... )
      */
-    public function createBill($bill) : array {
+    public function createBill($bill) : bool {
 
         $result = false;
+        $content = json_encode($bill['orders']);
 
-        $content = json_encode($bill);
-
-        $curl = curl_init($this->url."cart");
+        $curl = curl_init($this->url."bill");
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json","x-access-token:".$this->token));

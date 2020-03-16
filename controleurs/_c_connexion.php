@@ -1,8 +1,9 @@
 <?php
+
 // Connexion
 $email;
 $password;
-    
+
     // Fiche produit
 $id = 0;
 $titre = '';
@@ -26,6 +27,7 @@ if(empty($_POST)) {
         $_SESSION['email'] = $email;
         $_SESSION['token'] = $api->token;
         $tokenuser = ($api->token);
+        $_SESSION['product'] = [];
         include 'controleurs/_c_accueil.php';
     }
 }

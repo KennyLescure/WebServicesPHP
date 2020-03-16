@@ -43,7 +43,6 @@
 <?php
     echo"<form action=\"index.php?uc=accueil&action=filtre&tokenuser=".$tokenuser."\" method=\"post\">"
 ?>
-    
         <fieldset id="#periodicite">
             <span>
             <?php
@@ -82,13 +81,14 @@
                 <input type="submit" value="Filtrer">
             </span>
             <?php
-                echo'<a href="index.php?uc=panier"><img src="boutique/panier.jpg" id=panier /></a>';
+                echo '<a href="index.php?uc=accueil&vide=1">Vider le panier</a>';
+                echo '<a href="index.php?uc=panier"><img src="boutique/panier.jpg" id=panier /></a>';
             ?>
         </fieldset>
     </form>
     </div>
-    <table id="tablevelos" class="table"  border="1">
-        <thead>
+    <table id="tablevelos" class="table table-striped">
+        <thead class="thead-dark">
             <th>Nom</th>
             <th>Description</th>
             <th>Prix</th>
@@ -96,37 +96,37 @@
             <th>Ajouter au panier</th>
         </thead>
         <tbody>
-<?php
-for($i=0;$i<count($prod['products']);$i++){ //pr chaque produit de la base
+            <?php
+            for($i=0;$i<count($prod['products']);$i++){ //pr chaque produit de la base
+                for($z=0;$z<count($prod['products'][$i]['categories']);$z++){ // pr chaque index de sa table categorie
+                    if(strpos($filtre,$prod['products'][$i]['categories'][$z])){ // si l'index contient est contenu dans les filtres a affiché
+                        if ($i%2 == 1)
+                        {
+                            echo "<tr class=\"pair\">";
+                        }else{
+                            echo "<tr class=\"impair\">";
+                        }
+                    echo "<td><a href=index.php?uc=ficheProduit&id=".$prod['products'][$i]['id'].">".$prod['products'][$i]['name']."</a></td>"; 
+                    echo "<td>".$prod['products'][$i]['description']."</td>"; 
+                    echo "<td>".$prod['products'][$i]['price']." €</td>"; 
+                    if (isset($prod['products'][$i]['categories'][1]))
+                    {
+                        echo "<td>".$prod['products'][$i]['categories'][1]."</td>"; 
+                    }else
+                    {
+                        echo "<td>".$prod['products'][$i]['categories'][0]."</td>"; 
+                    }
+                    echo('
+                        <td><a href="index.php?uc=accueil&id='.$prod['products'][$i]['id'].'" class="btn btn-primary">Ajouter au panier</a></td>
+                    ');
+                    // echo "<td><a href=\"popup_ajouter_panier.php?id=".$prod['products'][$i]['id']."\" onclick=\"window.open(this.href, 'Popup', 'scrollbars=1,resizable=1,height=500,width=500'); return false;\">";
+                    // echo"<input type=\"button\" value=\"Ajouter au panier\"/></a></td>";
+                    echo "</tr>";
+                    $z++;
 
-    for($z=0;$z<count($prod['products'][$i]['categories']);$z++){ // pr chaque index de sa table categorie
-        
-        if(strpos($filtre,$prod['products'][$i]['categories'][$z])){ // si l'index contient est contenu dans les filtres a affiché
-            
-            if ($i%2 == 1)
-            {
-                echo "<tr class=\"pair\">";
-            }else{
-                echo "<tr class=\"impair\">";
-            }
-        echo "<td><a href=index.php?uc=ficheProduit&id=".$prod['products'][$i]['id'].">".$prod['products'][$i]['name']."</a></td>"; 
-        echo "<td>".$prod['products'][$i]['description']."</td>"; 
-        echo "<td>".$prod['products'][$i]['price']."</td>"; 
-        if (isset($prod['products'][$i]['categories'][1]))
-        {
-            echo "<td>".$prod['products'][$i]['categories'][1]."</td>"; 
-        }else
-        {
-            echo "<td>".$prod['products'][$i]['categories'][0]."</td>"; 
-        }
-        echo "<td><a href=\"popup_ajouter_panier.php?id=".$prod['products'][$i]['id']."\" onclick=\"window.open(this.href, 'Popup', 'scrollbars=1,resizable=1,height=170,width=200'); return false;\">";
-        echo"<input type=\"button\" value=\"Ajouter au panier\"/></a></td>";
-        echo "</tr>";          
-        $z++;
-
-        }
-    }    
-}?>
+                    }
+                }    
+            }?>
         </tbody>
     </table>
  </body>
